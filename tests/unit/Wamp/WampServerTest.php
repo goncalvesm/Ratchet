@@ -1,20 +1,23 @@
 <?php
 namespace Ratchet\Wamp;
+use PHPUnit\Framework\Constraint\IsInstanceOf;
 use Ratchet\AbstractMessageComponentTestCase;
 
 /**
  * @covers Ratchet\Wamp\WampServer
  */
 class WampServerTest extends AbstractMessageComponentTestCase {
-    public function getConnectionClassString() {
+    public function getConnectionClassString(): string {
         return '\Ratchet\Wamp\WampConnection';
     }
 
-    public function getDecoratorClassString() {
+    public function getDecoratorClassString(): string
+    {
         return 'Ratchet\Wamp\WampServer';
     }
 
-    public function getComponentClassString() {
+    public function getComponentClassString(): string
+    {
         return '\Ratchet\Wamp\WampServerInterface';
     }
 
@@ -23,7 +26,7 @@ class WampServerTest extends AbstractMessageComponentTestCase {
 
         $this->_app->expects($this->once())->method('onPublish')->with(
             $this->isExpectedConnection()
-          , new \PHPUnit_Framework_Constraint_IsInstanceOf('\Ratchet\Wamp\Topic')
+          , new IsInstanceOf('\Ratchet\Wamp\Topic')
           , $published
           , array()
           , array()
@@ -34,7 +37,7 @@ class WampServerTest extends AbstractMessageComponentTestCase {
 
     public function testGetSubProtocols() {
         // todo: could expand on this
-        $this->assertInternalType('array', $this->_serv->getSubProtocols());
+        $this->assertIsArray($this->_serv->getSubProtocols());
     }
 
     public function testConnectionClosesOnInvalidJson() {
