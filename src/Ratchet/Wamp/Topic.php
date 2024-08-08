@@ -37,7 +37,8 @@ class Topic implements \IteratorAggregate, \Countable {
      * @return Topic The same Topic object to chain
      */
     public function broadcast($msg, array $exclude = array(), array $eligible = array()) {
-        $useEligible = (bool)count($eligible);
+        $useEligible = count($eligible) > 0;
+
         foreach ($this->subscribers as $client) {
             if (in_array($client->WAMP->sessionId, $exclude)) {
                 continue;

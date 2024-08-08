@@ -1,14 +1,15 @@
 <?php
 namespace Ratchet\Session\Serialize;
+use PHPUnit\Framework\TestCase;
 use Ratchet\Session\Serialize\PhpHandler;
 
 /**
  * @covers Ratchet\Session\Serialize\PhpHandler
  */
-class PhpHandlerTest extends \PHPUnit_Framework_TestCase {
+class PhpHandlerTest extends TestCase {
     protected $_handler;
 
-    public function setUp() {
+    public function setUp(): void {
         $this->_handler = new PhpHandler;
     }
 
@@ -30,14 +31,14 @@ class PhpHandlerTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider serializedProvider
      */
-    public function testUnserialize($in, $expected) {
-        $this->assertEquals($expected, $this->_handler->unserialize($in));
+    public function testUnserialize($serialized, $array) {
+        $this->assertEquals($array, $this->_handler->unserialize($serialized));
     }
 
     /**
      * @dataProvider serializedProvider
      */
-    public function testSerialize($serialized, $original) {
-        $this->assertEquals($serialized, $this->_handler->serialize($original));
+    public function testSerialize($serialized, $array) {
+        $this->assertEquals($serialized, $this->_handler->serialize($array));
     }
 }
